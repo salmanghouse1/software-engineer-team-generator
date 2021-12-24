@@ -1,7 +1,6 @@
 // importing packages
 const inquirer = require('inquirer');
 const { exit } = require('process');
-const jest = require('jest');
 
 
 
@@ -49,7 +48,13 @@ async function init(questions) {
     console.log('Hello, Welcome');
 
     const startStatus = await inquirer.prompt(questions);
+
+
+
+
     return startStatus;
+
+
 
 }
 
@@ -59,6 +64,7 @@ async function init(questions) {
 init(questionsArray[0]).then((data) => {
     // promise
     if (data.confirmUserData) {
+        console.log(data.confirmUserData)
         console.log("Lets Start")
         inquirer.prompt(secondarySlicedArrayOfQuestions);
         // const userData = inquirer.prompt(questionsArray_.range(1, 5);)
@@ -67,3 +73,7 @@ init(questionsArray[0]).then((data) => {
         exit()
     }
 })
+
+
+
+module.exports = init
