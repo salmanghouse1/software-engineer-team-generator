@@ -4,19 +4,10 @@ const { exit } = require('process');
 const Employee = require('./lib/employee.js');
 
 questionsEmployeeType = [{
-    type: 'list',
-    name: 'employeeType',
-    message: 'enter Employee Type To Be Created',
-    choices: ['Manager', 'Engineer', 'Intern']
-}]
-
-
-// Questions to be prompted
-questionsArray = [{
-
-        type: 'confirm',
-        name: 'confirmUserData',
-        message: 'Lets Insert some User data',
+        type: 'list',
+        name: 'employeeType',
+        message: 'enter Employee Type To Be Created',
+        choices: ['Manager', 'Engineer', 'Intern']
     }, {
 
         type: 'text',
@@ -40,10 +31,27 @@ questionsArray = [{
     {
 
         type: 'text',
-        name: 'employeeTitle',
+        name: 'employeePhoneNumber',
         message: 'Employee Phone Number',
-    },
+    }
+
 ]
+
+questionsPrompt = [{
+    type: 'list',
+    name: 'employeeType',
+    message: 'do you want to enter an employee data?',
+    choices: ['Yes', 'No']
+}]
+
+
+// Questions to be prompted
+questionsArray = [{
+
+    type: 'confirm',
+    name: 'confirmUserData',
+    message: 'Do you want to enter some Employee Data?',
+}, ]
 
 // Prompt questions what type of employee
 
@@ -77,7 +85,7 @@ init(questionsArray[0]).then((data) => {
         console.log(data.confirmUserData)
         console.log("Lets Start")
         inquirer.prompt(questionsEmployeeType).then((data) => {
-            if (data.employeeType) {}
+            const employee = new Employee(data.employeeType, data.employeeName, data.employeeDescription, data.phoneNumber);
         });
         // const userData = inquirer.prompt(questionsArray_.range(1, 5);)
     } else {
