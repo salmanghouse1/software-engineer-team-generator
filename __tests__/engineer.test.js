@@ -1,8 +1,14 @@
 const Engineer = require('../lib/engineer');
 // include mocks
 
-test('Testing engineer class', () => {
-    const engineer = new Engineer('Dave', 'Hardworking engineer', '416 843 9325');
+jest.mock('../lib/engineer');
+
+
+
+test('Testing engineer class with mocks too', () => {
+    const engineer = new Engineer();
+    console.log(engineer)
+    expect(engineer.id).toEqual(5);
 
 
 
@@ -19,14 +25,20 @@ test('Testing engineer class', () => {
     expect(engineer.name).toEqual(expect.any(String));
     expect(engineer.phoneNumber).toEqual(expect.any(String));
     expect(engineer.description).toEqual(expect.any(String));
-    expect(engineer.type).toEqual(expect.any(String));
+
 
     // exact string equal
     expect(engineer.name).toBe('Dave');
-    expect(engineer.description).toBe('Hardworking engineer');
+    expect(engineer.description).toBe('a description');
 
-    expect(engineer.type).toBe('Engineer');
 
     expect(engineer.phoneNumber).toBe('416 843 9325');
+
+})
+
+
+test('Mocking test data', () => {
+
+
 
 })
