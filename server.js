@@ -1,8 +1,14 @@
 // importing packages
 const inquirer = require('inquirer');
 const { exit } = require('process');
+const Employee = require('./lib/employee.js');
 
-
+questionsEmployeeType = [{
+    type: 'list',
+    name: 'employeeType',
+    message: 'enter Employee Type To Be Created',
+    choices: ['Manager', 'Engineer', 'Intern']
+}]
 
 
 // Questions to be prompted
@@ -11,8 +17,7 @@ questionsArray = [{
         type: 'confirm',
         name: 'confirmUserData',
         message: 'Lets Insert some User data',
-    },
-    {
+    }, {
 
         type: 'text',
         name: 'employeeName',
@@ -40,6 +45,12 @@ questionsArray = [{
     },
 ]
 
+// Prompt questions what type of employee
+
+
+
+
+
 // Secondary stage questions
 const secondarySlicedArrayOfQuestions = questionsArray.slice(1, 3);
 
@@ -60,13 +71,14 @@ async function init(questions) {
 
 
 
-
 init(questionsArray[0]).then((data) => {
     // promise
     if (data.confirmUserData) {
         console.log(data.confirmUserData)
         console.log("Lets Start")
-        inquirer.prompt(secondarySlicedArrayOfQuestions);
+        inquirer.prompt(questionsEmployeeType).then((data) => {
+            if (data.employeeType) {}
+        });
         // const userData = inquirer.prompt(questionsArray_.range(1, 5);)
     } else {
         console.log("exiting")

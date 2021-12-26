@@ -1,5 +1,4 @@
 const checkPrompt = require('../server');
-
 //Lets check if the initial prompt returns a Y
 
 
