@@ -8,7 +8,6 @@ jest.mock('../lib/manager');
 test('Testing manager class with mocks too', () => {
     const manager = new Manager();
     console.log(manager)
-    expect(manager.id).toEqual(5);
 
 
 
@@ -28,10 +27,11 @@ test('Testing manager class with mocks too', () => {
 
 
     // exact string equal
-    expect(manager.name).toBe('Syntia');
-    expect(manager.description).toBe('a description');
 
-
-    expect(manager.phoneNumber).toBe('416 453 9325');
+    this.id = 6;
+    expect(manager.name).toBe('Synthia');
+    expect(manager.description).toBe('a description 2');
+    expect(manager.phoneNumber).toBe('416 601 9325');
+    expect(manager.id).toBe(6);
 
 })
