@@ -2,6 +2,10 @@
 const inquirer = require('inquirer');
 const { exit } = require('process');
 const Employee = require('./lib/employee.js');
+const fs = require('fs');
+const generateHTML = require('./utils/generate_html');
+const filename = "index.html";
+const path = require('path')
 
 questionsEmployeeType = [{
         type: 'list',
@@ -31,7 +35,7 @@ questionsEmployeeType = [{
     {
 
         type: 'text',
-        name: 'employeePhoneNumber',
+        name: 'phoneNumber',
         message: 'Employee Phone Number',
     }
 
@@ -78,15 +82,65 @@ async function init(questions) {
 }
 
 
+const areYouDone = [{
+    type: 'confirm',
+    name: 'confirmAreYouDone',
+    message: 'Are You Done?',
+
+}]
+
+
+function writeToFile(fileName, data) {
+    return fs.writeFileSync(path.join(process.cwd(), fileName), generateHTML(data), () => {
+        if (err) throw err;
+        console.log('Saved!');
+    })
+
+
+    // fs.writeFile(fileName, data, (err) => {
+    //     if (err) throw err
+    //         //  })
+    // })
+}
+
+function areYouDonePrompt() {
+    inquirer.prompt(questionsEmployeeType).then((data) => {
+
+
+        const employee = new Employee(data.employeeType, data.employeeName, data.employeeDescription, data.phoneNumber);
+        console.log(employee.sendEmployeeData());
+        employeeAnswers.push(employee.sendEmployeeData());
+        console.log(employeeAnswers);
+        employeeAnswersString = JSON.stringify(employeeAnswers);
+        console.log(employeeAnswersString)
+        console.log(filename);
+
+        writeToFile(filename, JSON.stringify(employee.sendEmployeeData()))
+    });
+    inquirer.prompt(areYouDone).then((data) => {
+
+        console.log(data.confirmAreYouDone)
+        if (data.confirmAreYouDone) {
+
+            exit()
+
+        } else {
+            areYouDonePrompt();
+        }
+
+    })
+})
+};
+
+const employeeAnswers = [];
 
 init(questionsArray[0]).then((data) => {
     // promise
     if (data.confirmUserData) {
         console.log(data.confirmUserData)
         console.log("Lets Start")
-        inquirer.prompt(questionsEmployeeType).then((data) => {
-            const employee = new Employee(data.employeeType, data.employeeName, data.employeeDescription, data.phoneNumber);
-        });
+        areYouDonePrompt();
+
         // const userData = inquirer.prompt(questionsArray_.range(1, 5);)
     } else {
         console.log("exiting")
@@ -95,5 +149,7 @@ init(questionsArray[0]).then((data) => {
 })
 
 
+
+module.exports = init
 
 module.exports = init
