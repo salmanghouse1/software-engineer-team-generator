@@ -91,10 +91,10 @@ const areYouDone = [{
 
 
 function writeToFile(fileName, data) {
-    return fs.writeFileSync(path.join(process.cwd(), fileName), generateHTML(data), () => {
+    return fs.appendFileSync(path.join(process.cwd(), fileName), data), () => {
         if (err) throw err;
         console.log('Saved!');
-    })
+    }
 
 
     // fs.writeFile(fileName, data, (err) => {
@@ -108,28 +108,29 @@ function areYouDonePrompt() {
 
 
         const employee = new Employee(data.employeeType, data.employeeName, data.employeeDescription, data.phoneNumber);
-        console.log(employee.sendEmployeeData());
+
         employeeAnswers.push(employee.sendEmployeeData());
-        console.log(employeeAnswers);
         employeeAnswersString = JSON.stringify(employeeAnswers);
-        console.log(employeeAnswersString)
-        console.log(filename);
 
-        writeToFile(filename, JSON.stringify(employee.sendEmployeeData()))
-    });
-    inquirer.prompt(areYouDone).then((data) => {
-
-        console.log(data.confirmAreYouDone)
-        if (data.confirmAreYouDone) {
-
-            exit()
-
-        } else {
-            areYouDonePrompt();
-        }
+        writeToFile(filename, generateHTML(employee.sendEmployeeData()));
 
     })
-})
+
+    .then((data) => {
+        inquirer.prompt(areYouDone).then((data) => {
+
+            console.log(data.confirmAreYouDone)
+            if (data.confirmAreYouDone) {
+
+                exit()
+
+            } else {
+                areYouDonePrompt();
+            }
+
+        })
+    })
+
 };
 
 const employeeAnswers = [];
@@ -149,7 +150,5 @@ init(questionsArray[0]).then((data) => {
 })
 
 
-
-module.exports = init
 
 module.exports = init
