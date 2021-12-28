@@ -112,7 +112,7 @@ function areYouDonePrompt() {
         employeeAnswers.push(employee.sendEmployeeData());
         employeeAnswersString = JSON.stringify(employeeAnswers);
 
-        writeToFile(filename, generateHTML(employee.sendEmployeeData()));
+        writeToFile(filename, generateHTML(employee.sendEmployeeData(), employee));
 
     })
 
