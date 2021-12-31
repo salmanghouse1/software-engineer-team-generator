@@ -1,37 +1,30 @@
 const Manager = require('../lib/manager');
 // include mocks
 
-jest.mock('../lib/manager');
+test('Testing manager class', () => {
+    manager = new Manager('dave', '2', 'dave@gmail.com', '444')
 
 
+    // manager object needs to be instantiated here
 
-test('Testing manager class with mocks too', () => {
-    const manager = new Manager();
-    console.log(manager)
+    // test if manager object contains the properties listed bello
 
-
-
-    // employee object needs to be instantiated here
-
-    // test if manager object contains the properties listed bellow
-    expect(manager).toHaveProperty('id');
+    expect(manager).toHaveProperty('officeNumber');
     expect(manager).toHaveProperty('name');
-    expect(manager).toHaveProperty('description');
-    expect(manager).toHaveProperty('phoneNumber');
+    expect(manager).toHaveProperty('id');
+    expect(manager).toHaveProperty('email');
+
+    expect(manager.name).toBe('dave');
+    expect(manager.id).toBe('2');
+    expect(manager.email).toBe('dave@gmail.com');
+    expect(manager.officeNumber).toBe('444');
+
 
     // test if manager properties equals to a string
-    expect(manager.id).toEqual(expect.any(Number));
     expect(manager.name).toEqual(expect.any(String));
-    expect(manager.phoneNumber).toEqual(expect.any(String));
-    expect(manager.description).toEqual(expect.any(String));
+    expect(manager.officeNumber).toEqual(expect.any(String));
+    expect(manager.email).toEqual(expect.any(String));
+    expect(manager.id).toEqual(expect.any(String));
 
-
-    // exact string equal
-
-    this.id = 6;
-    expect(manager.name).toBe('Synthia');
-    expect(manager.description).toBe('a description 2');
-    expect(manager.phoneNumber).toBe('416 601 9325');
-    expect(manager.id).toBe(6);
 
 })
